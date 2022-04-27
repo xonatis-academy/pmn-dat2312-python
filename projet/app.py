@@ -1,11 +1,7 @@
-from controllers.app_controller import AppController
-from providers import CompanyProvider, PersonProvider
-from services.search_service import SearchService
+from container import Container
 
-company_provider = CompanyProvider()
-person_provider = PersonProvider()
-service = SearchService([company_provider, person_provider])
-controller = AppController(service)
+container = Container()
+controller = container.controller()
 
 text = input('What are you looking for? ')
 results = controller.search(text)
