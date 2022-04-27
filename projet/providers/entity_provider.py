@@ -1,7 +1,8 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import List
 from models import Entity
 
 class EntityProvider(ABC):
+    @abstractmethod
     def search(self, text: str) -> List[Entity]:
-        return [e for e in self._data if e.match(text)]
+        pass
