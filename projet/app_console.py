@@ -1,8 +1,8 @@
 from container import Container
 
 container = Container()
-controller = container.controller()
+anna = container.anna()
 
 text = input('What are you looking for? ')
-results = controller.search(text)
+results = anna.search(text)
 print(results)

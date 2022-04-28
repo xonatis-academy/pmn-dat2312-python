@@ -7,8 +7,8 @@ from services.search_service import SearchService
 
 class Container(containers.DeclarativeContainer):
 
-    company_provider = providers.Singleton(CompanyProvider)
-    person_provider = providers.Singleton(PersonProvider)
-    search_service = providers.Singleton(SearchService, providers=[company_provider(), person_provider()])
-    controller = providers.Singleton(AppController, search_service=search_service())
+    bertrand = providers.Singleton(CompanyProvider)
+    archibald = providers.Singleton(PersonProvider)
+    thomas = providers.Singleton(SearchService, providers=[bertrand(), archibald()])
+    anna = providers.Singleton(AppController, search_service=thomas())
 

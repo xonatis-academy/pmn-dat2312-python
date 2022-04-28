@@ -1,17 +1,21 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from container import Container
 
 app = Flask(__name__)
 container = Container()
-controller = container.controller()
+anna = container.anna()
 
 @app.route('/salut')
 def hello():
-    result = controller.search('a')
+    result = anna.search('a')
     return jsonify(result)
 
 @app.route('/search', methods=['POST'])
 def search():
     data = request.json
-    result = controller.search(data['recherche'])
+    result = anna.search(data['searchText'])
     return jsonify(result)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
