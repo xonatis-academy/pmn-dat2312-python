@@ -1,21 +1,36 @@
-from flask import Flask, jsonify, request, render_template
+from tkinter import *
+from typing import List 
 from container import Container
 
-app = Flask(__name__)
 container = Container()
 anna = container.anna()
 
-@app.route('/salut')
-def hello():
-    result = anna.search('a')
-    return jsonify(result)
+window = Tk()
 
-@app.route('/search', methods=['POST'])
+# Adding label
+label = Label(window, text='Super search!')
+label.pack()
+
+# Adding input
+value = StringVar()
+value.set('What are you looking for?')
+entree = Entry(window, textvariable=value)
+entree.pack()
+
+# Adding search button
 def search():
-    data = request.json
-    result = anna.search(data['searchText'])
-    return jsonify(result)
+    global result_list
+    result_list.delete(0, END)
+    search_text: str = entree.get()
+    results: List[str] = anna.search(search_text)
+    for index, result in enumerate(results):
+        result_list.insert(index +1, result)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+button = Button(window,text="Rechercher", command=search)
+button.pack()
+
+# Adding result list
+result_list = Listbox(window)
+result_list.pack()
+
+window.mainloop()
