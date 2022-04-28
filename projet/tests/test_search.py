@@ -9,5 +9,5 @@ class TestSearch(unittest.TestCase):
         container = Container()
         bertrand = container.bertrand()
         results: List[Company] = bertrand.search('Go')
-        self.assertEqual(results[0].get_name(), 'Google')
+        self.assertIn('Google', [r.get_name() for r in results])
 
