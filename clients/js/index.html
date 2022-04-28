@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super search!</title>
+</head>
+
+<body>
+    <main>
+        <section>
+            <input type="text" placeholder="What are you looking for?" />
+            <button>Search now</button>
+        </section>
+        <section id="results"></section>
+    </main>
+    <script>
+        (() => {
+            document.querySelector('button').addEventListener('click', () => {
+                fetch('http://127.0.0.1:5000/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'searchText': document.querySelector('input').value
+                    })
+                }).then(x => {
+                    return x.json();
+                }).then(x => {
+                    const results = document.querySelector('#results');
+                    results.replaceChildren();
+                    for (const entry of x) {
+                        const row = document.createElement('div');
+                        row.innerHTML = entry;
+                        results.appendChild(row);
+                    }
+                }).catch(x => {
+                    console.error(x);
+                })
+            })
+        })();
+    </script>
+</body>
+
+</html>
